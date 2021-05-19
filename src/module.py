@@ -8,7 +8,7 @@ from types import FunctionType
 from threading import Thread
 from serial import Serial
 from tkinter import Tk
-from tkinter.ttk import Frame
+from tkinter.ttk import Frame, Button
 
 import subprocess
 import sys
@@ -237,3 +237,17 @@ class TkWindow(Tk):
 
     def quit(self):
         super().quit()
+
+
+class EZButton(Button):
+    """
+    More intuitive button class for button bindings
+    """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def bind_button_down(self, callback):
+        self.bind('<ButtonPress-1>', callback)
+
+    def bind_button_up(self, callback):
+        self.bind('<ButtonRelease-1>', callback)
