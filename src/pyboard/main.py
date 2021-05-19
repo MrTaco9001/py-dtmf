@@ -78,7 +78,6 @@ def main():
 				if data == "stop":
 					update_frequencies(9, 9)
 					PWR_LED.off()
-					delay(250)
 					break
 				else:
 					x, y = int(data[0]), int(data[1])
