@@ -1,15 +1,15 @@
-'''
+"""
 Bryce Happel Walton
 Ciena
 5/18/2021
-'''
+"""
 
 from serial.tools.list_ports import comports
 from module import SerialDevice, TkWindow, EZButton
 from tkinter.ttk import Style, Frame, Button, Label, Combobox
 from tkinter import StringVar
 
-APPLICATION_TITLE = 'PyDTMF'
+APPLICATION_TITLE = "PyDTMF"
 
 X_FREQUENCIES = [1209, 1336, 1477, 1633]
 Y_FREQUENCIES = [697, 770, 852, 941]
@@ -58,5 +58,5 @@ class MainApplication(TkWindow):
 		super().quit()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 	MainApplication(APPLICATION_TITLE).mainloop()

@@ -1,8 +1,8 @@
-'''
+"""
 Bryce Happel Walton
 Ciena
 5/18/2021
-'''
+"""
 from time import time
 from types import FunctionType
 from threading import Thread
@@ -137,7 +137,7 @@ class Event:
         `kwargs`: keyword args for the functions
         """
         for function in self.functions:
-            # TODO: make a solution that doesn't involve requiring each function to have args and kwargs
+            # TODO: make a solution that doesn"t involve requiring each function to have args and kwargs
             function(args, kwargs)
 
     def connect(self, func):
@@ -166,7 +166,7 @@ class SerialDevice(Serial):
         super().__init__(port, baudrate)
 
     def kill(self):
-        self.write('kill')
+        self.write("kill")
         super().close()
 
     def read_timeout(self, timeout=500, bytes=None):
@@ -232,7 +232,7 @@ class TkWindow(Tk):
         super().title(title)
 
         self.frame = Frame(self)
-        self.frame.grid(sticky=('n', 'e', 's', 'w'), padx=8, pady=8)
+        self.frame.grid(sticky=("n", "e", "s", "w"), padx=8, pady=8)
         self._widgets = []
 
     def quit(self):
@@ -247,7 +247,7 @@ class EZButton(Button):
         super().__init__(*args, **kwargs)
 
     def bind_button_down(self, callback):
-        self.bind('<ButtonPress-1>', callback)
+        self.bind("<ButtonPress-1>", callback)
 
     def bind_button_up(self, callback):
-        self.bind('<ButtonRelease-1>', callback)
+        self.bind("<ButtonRelease-1>", callback)

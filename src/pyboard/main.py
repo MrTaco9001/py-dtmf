@@ -1,15 +1,15 @@
-'''
+"""
 Bryce Happel Walton
 Ciena
 5/18/2021
-'''
+"""
 
 from pyb import LED, USB_VCP, DAC
 from pyb import millis, elapsed_millis, delay, Timer
 from math import pi, sin
 from array import array
 
-INF = float('inf')
+INF = float("inf")
 
 PWR_LED = LED(3)
 DATA_LED = LED(4)
@@ -17,8 +17,8 @@ DATA_LED = LED(4)
 X_FREQUENCIES = [697, 770, 852, 941]
 Y_FREQUENCIES = [1209, 1336, 1477, 1633]
 
-x_buf = array('H', 2048 + int(2047 * sin(2 * pi * i / 128)) for i in range(128))
-y_buf = array('H', 2048 + int(2047 * sin(2 * pi * i / 128)) for i in range(128))
+x_buf = array("H", 2048 + int(2047 * sin(2 * pi * i / 128)) for i in range(128))
+y_buf = array("H", 2048 + int(2047 * sin(2 * pi * i / 128)) for i in range(128))
 
 x_dac = DAC(1, bits=12)
 y_dac = DAC(2, bits=12)
@@ -71,11 +71,11 @@ def main():
 
 	while True:
 		read = usb.read_timeout(INF)
-		if read == 'start':
+		if read == "start":
 			PWR_LED.on()
 			while usb.isconnected():
 				data = usb.read_timeout(INF)
-				if data == 'stop':
+				if data == "stop":
 					update_frequencies(9, 9)
 					PWR_LED.off()
 					delay(250)
@@ -89,5 +89,5 @@ def main():
 					update_frequencies(x, y)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 	main()

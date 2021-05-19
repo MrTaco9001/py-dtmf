@@ -1,15 +1,15 @@
-'''
+"""
 Bryce Happel Walton
 Ciena
 5/18/2021
-'''
+"""
 
 from serial.tools.list_ports import comports
 from module import SerialDevice, TkWindow, EZButton
 from tkinter.ttk import Style, Frame, Button, Label, Combobox
 from tkinter import StringVar
 
-APPLICATION_TITLE = 'PyDTMF'
+APPLICATION_TITLE = "PyDTMF"
 
 X_FREQUENCIES = [1209, 1336, 1477, 1633]
 Y_FREQUENCIES = [697, 770, 852, 941]
@@ -27,25 +27,25 @@ class DeviceSelection(TkWindow):
 	"""
 
 	def __init__(self):
-		super().__init__('Device Select')
+		super().__init__("Device Select")
 		self.value = StringVar()
 		ports = comports()
 		self._string_values = [
-			f'{port.device}: {port.description}' for port in ports]
+			f"{port.device}: {port.description}" for port in ports]
 		self._real_values = [port.device for port in ports]
 		self.selected_device = None
 
 		self.selection_box = Combobox(
-			self.frame, values=self._string_values, textvariable=self.value, state='readonly', width=40)
-		self.selection_box.set('Select a device')
+			self.frame, values=self._string_values, textvariable=self.value, state="readonly", width=40)
+		self.selection_box.set("Select a device")
 		self.selection_box.grid(row=0, column=0)
-		self.selection_box.bind('<<ComboboxSelected>>', self._enable_confirm)
+		self.selection_box.bind("<<ComboboxSelected>>", self._enable_confirm)
 
 		self.buffer_frame = Frame(self.frame, height=8)
 		self.buffer_frame.grid(row=1, column=0)
 
 		self.confirm_button = Button(
-			self.frame, text='Confirm', command=self._confirm, state='disabled')
+			self.frame, text="Confirm", command=self._confirm, state="disabled")
 		self.confirm_button.grid(row=2, column=0)
 		super().mainloop()
 
@@ -54,7 +54,7 @@ class DeviceSelection(TkWindow):
 		Enables the confirmation button to select the device.
 		> Called automagically when a device is selected in the combobox
 		"""
-		self.confirm_button.configure(state='enabled')
+		self.confirm_button.configure(state="enabled")
 
 	def _confirm(self):
 		"""
@@ -84,11 +84,11 @@ class MainApplication(TkWindow):
 
 		self.device = device
 		self._build_keypad()
-		self.device.write('start')
+		self.device.write("start")
 		self.protocol("WM_DELETE_WINDOW", self.quit)
 
 	def write_freq_selection(self, x, y):
-		self.device.write(f'{x}{y}')
+		self.device.write(f"{x}{y}")
 
 	def button_down(self, x, y):
 		return lambda event: write_freq_selection(x, y)
@@ -116,9 +116,9 @@ class MainApplication(TkWindow):
 				button.grid(row=y+1, column=x+1)
 
 	def quit(self):
-		self.device.write('stop')
+		self.device.write("stop")
 		super().quit()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 	device = DeviceSelection().selected_device
 	MainApplication(APPLICATION_TITLE, device).mainloop()
