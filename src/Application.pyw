@@ -91,10 +91,10 @@ class MainApplication(TkWindow):
 		self.device.write(f"{x}{y}")
 
 	def button_down(self, x, y):
-		return lambda event: write_freq_selection(x, y)
+		return lambda event: self.write_freq_selection(x, y)
 
 	def button_up(self, x, y):
-		return lambda event: write_freq_selection(9, 9)
+		return lambda event: self.write_freq_selection(9, 9)
 
 	def _build_keypad(self):
 		unit_label = Label(self.frame, text="(Hz)")
