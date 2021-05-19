@@ -81,10 +81,6 @@ def main():
 					delay(250)
 					break
 				else:
-					DATA_LED.on()
-					delay(10)
-					DATA_LED.off()
-
 					x, y = int(data[0]), int(data[1])
 					update_frequencies(x, y)
 
