@@ -5,7 +5,7 @@ Ciena
 '''
 
 from serial.tools.list_ports import comports
-from module import SerialDevice, TkWindow
+from module import SerialDevice, TkWindow, EZButton
 from tkinter.ttk import Style, Frame, Button, Label, Combobox
 from tkinter import StringVar
 
@@ -88,7 +88,13 @@ class MainApplication(TkWindow):
 		self.protocol("WM_DELETE_WINDOW", self.quit)
 
 	def write_freq_selection(self, x, y):
-		return lambda: self.device.write(f'{x}{y}')
+		self.device.write(f'{x}{y}')
+
+	def button_down(self, x, y):
+		return lambda event: write_freq_selection(x, y)
+
+	def button_up(self, x, y):
+		return lambda event: write_freq_selection(9, 9)
 
 	def _build_keypad(self):
 		unit_label = Label(self.frame, text="(Hz)")
@@ -104,11 +110,10 @@ class MainApplication(TkWindow):
 
 		for y in range(len(KEY_PAD)):
 			for x in range(len(KEY_PAD[y])):
-				button = Button(self.frame, text=KEY_PAD[y][x], command=self.write_freq_selection(x, y))
+				button = EZButton(self.frame, text=KEY_PAD[y][x])
+				button.bind_button_down(self.button_down(x, y))
+				button.bind_button_up(self.button_up(x, y))
 				button.grid(row=y+1, column=x+1)
-
-		off_button = Button(self.frame, text="Off", command=self.write_freq_selection(9, 9))
-		off_button.grid(row=5, column=1)
 
 	def quit(self):
 		self.device.write('stop')
